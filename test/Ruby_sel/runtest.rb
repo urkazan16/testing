@@ -15,7 +15,7 @@ include LtTest
 
     Selenium::WebDriver::Chrome.driver_path = "/usr/local/bin/chromedriver"
     options = Selenium::WebDriver::Chrome::Options.new
-    # options.add_argument('--headless')
+    options.add_argument('--headless')
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--disable-popup-blocking')
     options.add_argument('--disable-translate')
