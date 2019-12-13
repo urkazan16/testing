@@ -1,0 +1,185 @@
+const path = require('path');
+const _ = require('lodash');
+var sleep = require('sleep');
+const assert = require('assert');
+const { expect } = require('chai');
+
+describe('Выбор вакансии', () => {
+
+
+before (async () => {
+	page = await browser.newPage();
+  	await page.goto(baseURL, {waitUntil: 'networkidle2'})
+})
+
+ after (async  () => {
+     await page.close();
+   })
+
+
+
+
+
+it("Ввод логин и пароль", async () => {
+
+    await page.waitFor(nambeTime)
+
+	const btn1 = await Promise.race([
+
+    	page.waitForXPath("//div[contains(@class,'bloko-column bloko-column_xs-0 bloko-column_s-8 bloko-column_m-12 bloko-column_l-16')]//a[@class='supernova-button']")
+
+	]);
+	await btn1.click()
+
+    await page.screenshot({path: '1.png'})
+
+    await page.waitFor(nambeTime)
+
+	const btn1type = await Promise.race([
+
+    	page.waitForXPath("//input[@placeholder='Email или телефон']")
+
+	]);
+
+	await btn1type.type("urkazan16@gmail.com")
+
+	const btn2type = await Promise.race([
+
+    	page.waitForXPath("//input[@placeholder='Пароль']")
+	]);
+
+	await btn2type.type("DinDisplay")
+
+    await page.screenshot({path: '1.1.png'})
+
+
+	const btn2 = await Promise.race([
+
+    	page.waitForSelector('.account-form-actions input')
+
+	]);
+	await btn2.click()
+
+    await page.waitFor(nambeTime)
+
+    await page.screenshot({path: '1.2.png'})
+
+});
+
+
+
+it("Поиск вакансии", async () => {
+
+	const btn2type = await Promise.race([
+
+    	page.waitForSelector(".bloko-input-wrapper input")
+	]);
+
+	await btn2type.type("Тестировщик")
+
+		const btn2 = await Promise.race([
+
+    	page.waitForSelector('.supernova-search-group__submit button')
+
+	]);
+	await btn2.click()
+
+    await page.screenshot({path: '2.png'})
+
+	await page.waitFor(nambeTime)
+
+
+});
+
+
+it("Количесво вакансий", async () => {
+
+
+const postsSelectorlink = '.bloko-button-group span a';
+// const postsSelectorlink = '.bloko-button-group.bloko-button.HH-Pager-Control';
+await page.waitForSelector(postsSelectorlink, { timeout: 0 });
+const baseURLss = await page.$$eval(
+  postsSelectorlink, postLinks => postLinks.map(link => link.href)
+);
+
+
+	for (var i = 0; i <= baseURLss.length; i++) {
+	// for (let baseURL of baseURLss) {
+
+	    try {
+	        await page.goto(baseURLss[i]);
+	        console.log('Открываю страницу: ', baseURLss[i]);
+	    } catch (error) {
+	        console.log(error);
+	        console.log('Не удалось открыть страницу: ', baseURLss[i]);
+	    }
+
+
+			// Найдём все ссылки на посты
+			// const postsSelector = '.HH-VacancyResponsePopup-Link';
+			const postsSelector = '.vacancy-serp .g-user-content a';
+			await page.waitForSelector(postsSelector, { timeout: 0 });
+			const baseURLssk = await page.$$eval(
+			  postsSelector, postLinks => postLinks.map(link => link.href)
+			);
+
+
+			// console.log(baseURLssk.length)
+			// console.log(baseURLssk)
+   			
+   			await page.waitFor(nambeTime)
+
+   // 			// for (var links = 0; links <= baseURLssk.length; links++) {
+			for (let baseURL of baseURLssk) {
+
+			// 	// console.log(baseURLssk[i])
+
+			// 	   //  // Откроем страницу
+			    try {
+			        await page.goto(baseURL);
+			        console.log('Открываю страницу: ', baseURL);
+			    } catch (error) {
+			        console.log(error);
+			        console.log('Не удалось открыть страницу: ', baseURL);
+			    }
+
+			//     // div:nth-child(4) > div > div > div > div > div.vacancy-action.vacancy-action_stretched > a.bloko-button_secondary.bloko-button_stretched
+
+
+
+			//   //   await page.waitFor(nambeTime)
+			//   //   // // Получим заголовок статьи
+			    const titleSelector = '.vacancy-title h1';
+			    await page.waitForSelector(titleSelector);
+			    const pageTitle = await page.$eval(
+			      titleSelector, titleSelector => titleSelector.innerText
+			      // titleSelector, titleSelector => titleSelector.outerHTML
+			    );
+
+			    // console.log(pageTitle)
+			    try {
+					const btn7231 = await Promise.race([
+				   	page.waitForSelector("body > div.HH-MainContent.HH-Supernova-MainContent > div > div > div.bloko-columns-wrapper > div > div > div.bloko-column.bloko-column_xs-4.bloko-column_s-8.bloko-column_m-8.bloko-column_l-11.bloko-column_container > div > div:nth-child(3) > div:nth-child(5) > div:nth-child(4) > div > div > div > div > div.vacancy-action.HH-VacancyResponsePopup-TopResponseAction.vacancy-action_full-size > a.HH-VacancyResponsePopup-Link.bloko-button.bloko-button_secondary.bloko-button_stretched")
+
+					]);
+
+					await btn7231.click()
+
+					 console.log('Откликнуться: ', pageTitle);
+
+					 await page.screenshot({path: '1'+links+'.png'})
+
+			    }	catch (error) {
+
+				   console.log(error);
+				   console.log('Вы откликнулись: ', pageTitle);
+
+			    }
+			 
+			 }
+
+		}
+
+	});
+
+});

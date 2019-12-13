@@ -1,0 +1,26 @@
+{
+  "name": "telao_puppeteer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --timeout=680000 ./tests",
+    "test11": "mocha --timeout 3000000 bootstrap.js --recursive test/",
+    "test_new": "mocha --timeout 300000 bootstrap.js --recursive test/new08search.spec.js",
+    "test_mob": "mocha --timeout 300000 bootstrap_mob.js --recursive test_mob/ ",
+    "test_admin": "mocha bootstrap.js --recursive test/admin_panel",
+    "test_one": "mocha --timeout 300000 bootstrap.js --recursive test/cart_product.spec.js",
+    "test_first": "mocha bootstrap.js --recursive test/first ",
+    "test_clean": "rm -rf img_test/**/*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "jest": "^24.9.0",
+    "jest-image-snapshot": "^2.11.1",
+    "mocha": "^6.2.2",
+    "puppeteer": "^2.0.0"
+  }
+}

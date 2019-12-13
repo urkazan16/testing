@@ -1,0 +1,374 @@
+const puppeteer = require('puppeteer')
+const expect = require('chai').expect
+const click = require('../lib/helpers').click
+// const clickByTexts = require('../lib/helpers').clickByTexts
+const typeText = require('../lib/helpers').typeText
+const loadUrl = require('../lib/helpers').loadUrl
+const waitForText = require('../lib/helpers').waitForText
+const pressKey = require('../lib/helpers').pressKey
+const shouldExist = require('../lib/helpers').shouldExist
+const getCount = require('../lib/helpers').getCount
+
+describe('My first test', () => {
+	let browser
+	let page
+
+	before(async function(){
+		browser = await puppeteer.launch({
+			// baseUrl: "https://yandex.ru",
+			headless: true,
+			// headless: false,
+			slowMo: 0,
+			devtools: false,
+			timeout: 10000,
+			executablePath: '/usr/bin/google-chrome',
+			  args : [
+        // '--no-sandbox', '--disable-setuid-sandbox', '--window-size=1920,1080'
+        '--no-sandbox', '--disable-setuid-sandbox', '--window-size=1920,1080','--disable-dev-shm-usage'
+  ]
+		})
+
+		page = await browser.newPage()
+		await page.setDefaultTimeout(10000)
+		// await page.setViewport({
+		// 	width: 1940,
+		// 	height: 1000
+		// })
+	})
+
+	after(async function(){
+		await browser.close()
+	})
+	
+
+describe('login test', () => {
+
+	it("Ввод логин и пароль", async () => {
+
+		await page.goto("https://kazan.hh.ru/", {waitUntil: 'networkidle2' })
+
+		const btn1 = await Promise.race([
+
+	    	page.waitForXPath("//div[contains(@class,'bloko-column bloko-column_xs-0 bloko-column_s-8 bloko-column_m-12 bloko-column_l-16')]//a[@class='supernova-button']")
+
+		]);
+		await btn1.click()
+
+	    await page.screenshot({path: '1.png'})
+
+	    // await page.waitFor(nambeTime)
+
+		const btn1type = await Promise.race([
+
+	    	page.waitForXPath("//input[@placeholder='Email или телефон']")
+
+		]);
+
+		await btn1type.type("urkazan16@gmail.com")
+
+		const btn2type = await Promise.race([
+
+	    	page.waitForXPath("//input[@placeholder='Пароль']")
+		]);
+
+		await btn2type.type("DinDisplay")
+
+	    await page.screenshot({path: '1.1.png'})
+
+
+		const btn2 = await Promise.race([
+
+	    	page.waitForSelector('.account-form-actions input')
+
+		]);
+		await btn2.click()
+
+	    // await page.waitFor(nambeTime)
+
+	    await page.screenshot({path: '1.2.png'})
+
+	
+
+	});
+
+	it("Поиск вакансии", async () => {
+
+		const btn2type = await Promise.race([
+
+			page.waitForSelector(".bloko-input-wrapper input")
+		]);
+
+		await btn2type.type("Тестировщик")
+
+			const btn2 = await Promise.race([
+
+			page.waitForSelector('.supernova-search-group__submit button')
+
+		]);
+		await btn2.click()
+
+		await page.screenshot({path: '2.png'})
+
+		// await page.waitFor(nambeTime)
+
+
+		});
+
+it("Количесво вакансий", async () => {
+
+
+const postsSelectorlink = '.bloko-button-group span a';
+await page.waitForSelector(postsSelectorlink, { timeout: 0 });
+const baseURLss = await page.$$eval(
+  postsSelectorlink, postLinks => postLinks.map(link => link.href)
+);
+
+
+	for (var i = 0; i < baseURLss.length; i++) {
+	// for (let baseURL of baseURLss) {
+
+	    try {
+	        await page.goto(baseURLss[i], {waitUntil: 'networkidle2' });
+	        console.log('Открываю страницу пагинации: ', baseURLss[i]);
+	    } catch (error) {
+	        console.log(error);
+	        console.log('Не удалось открыть страницу пагинации: ', baseURLss[i]);
+	    }
+
+
+			const postsSelector = '.vacancy-serp .g-user-content a';
+			await page.waitForSelector(postsSelector, { timeout: 0 });
+			const baseURLssk = await page.$$eval(
+			  postsSelector, postLinks => postLinks.map(link => link.href)
+			);
+
+			// console.log('Открываю страницу: ', baseURLssk);
+   			
+   			// await page.waitFor(5000)
+
+			for (let baseURL of baseURLssk) {
+				// for(var is = 0; is <= baseURLssk.length; is++) {
+
+					// await page.waitFor(5000)
+
+					// console.log(baseURL)
+					// console.log(baseURLssk)
+					// console.log(baseURLssk[is])
+
+			    try {
+			        await page.goto(baseURL, {waitUntil: 'networkidle2' });
+			        // await page.goto(baseURLssk[is], {waitUntil: 'networkidle2' });
+			        console.log('Открываю страницу карточки: ', baseURL);
+			        // console.log('Открываю страницу карточки: ', baseURLssk[is]);
+			        // await page.screenshot({path: '1yes'+is+'.png'})
+			    } catch (error) {
+			        console.log(error);
+			        console.log('Не удалось открыть страницу карточки: ', baseURL);
+			        // console.log('Не удалось открыть страницу карточки: ', baseURLssk[is])
+			        // await page.screenshot({path: '1not'+is+'.png'})
+			    }
+
+			    const titleSelector = '.vacancy-title h1';
+			    await page.waitForSelector(titleSelector);
+			    const pageTitle = await page.$eval(
+			      titleSelector, titleSelector => titleSelector.innerText
+			    );
+
+
+
+
+
+// Откликнуться .noprint .bloko-gap a:nth-child(1)
+// Смотреть приглашение .noprint .bloko-gap a:nth-child(1)
+// Смотреть отклик .noprint .bloko-gap a:nth-child(1)
+// Вам отказали .noprint .bloko-gap a:nth-child(1)
+
+
+			  //   try {
+
+			  //   	// await page.waitFor(nambeTime)
+
+					// // const btn7231 = await Promise.race([
+				 // //   	// page.waitForXPath("//div[contains(@class,'vacancy-action HH-VacancyResponsePopup-TopResponseAction vacancy-action_stretched')]//a[contains(@class,'HH-VacancyResponsePopup-Link bloko-button bloko-button_secondary bloko-button_stretched')]")
+
+				 // //   	page.waitForSelector(".noprint .bloko-gap a:nth-child(1)")
+					// // ]);
+
+					// // await btn7231.click()
+
+			    const titlePages = '.noprint .bloko-gap a:nth-child(1)';
+			    await page.waitForSelector(titlePages);
+			    const pageTitles = await page.$eval(
+			      titlePages, titlePages => titlePages.innerText
+			    );
+
+			    if(pageTitles == "Откликнуться") {
+			    	console.log("++"+pageTitles)
+			    } else {
+
+			    	console.log("-- +"+pageTitles)
+			    }
+
+
+					//  await page.waitFor(1000)
+
+					//  // await page.screenshot({path: '2.png'})
+
+					//  console.log('Откликнуться: ', pageTitle);
+
+
+					//  // await page.screenshot({path: '1'+pageTitle+'.png'})
+
+			  //   }	catch (error) {
+
+				 //   console.log(error);
+				 //   console.log('Вы откликнулись: ', pageTitle);
+
+			  //   }
+			 
+			 }
+
+		}
+
+	});
+
+
+
+})
+})
+
+	// it("Ввод логин и пароль", async () => {
+
+	//     // await page.waitFor(nambeTime)
+
+	// 	const btn1 = await Promise.race([
+
+	//     	page.waitForXPath("//div[contains(@class,'bloko-column bloko-column_xs-0 bloko-column_s-8 bloko-column_m-12 bloko-column_l-16')]//a[@class='supernova-button']")
+
+	// 	]);
+	// 	await btn1.click()
+
+	//     await page.screenshot({path: '1.png'})
+
+	//     // await page.waitFor(nambeTime)
+
+	// 	const btn1type = await Promise.race([
+
+	//     	page.waitForXPath("//input[@placeholder='Email или телефон']")
+
+	// 	]);
+
+	// 	await btn1type.type("urkazan16@gmail.com")
+
+	// 	const btn2type = await Promise.race([
+
+	//     	page.waitForXPath("//input[@placeholder='Пароль']")
+	// 	]);
+
+	// 	await btn2type.type("DinDisplay")
+
+	//     await page.screenshot({path: '1.1.png'})
+
+
+	// 	const btn2 = await Promise.race([
+
+	//     	page.waitForSelector('.account-form-actions input')
+
+	// 	]);
+	// 	await btn2.click()
+
+	//     // await page.waitFor(nambeTime)
+
+	//     await page.screenshot({path: '1.2.png'})
+
+	// }
+
+// });
+
+
+
+
+
+
+// it("Количесво вакансий", async () => {
+
+
+// const postsSelectorlink = '.bloko-button-group span a';
+// await page.waitForSelector(postsSelectorlink, { timeout: 0 });
+// const baseURLss = await page.$$eval(
+//   postsSelectorlink, postLinks => postLinks.map(link => link.href)
+// );
+
+
+// 	for (var i = 0; i <= baseURLss.length; i++) {
+// 	// for (let baseURL of baseURLss) {
+
+// 	    try {
+// 	        await page.goto(baseURLss[i]);
+// 	        console.log('Открываю страницу: ', baseURLss[i]);
+// 	    } catch (error) {
+// 	        console.log(error);
+// 	        console.log('Не удалось открыть страницу: ', baseURLss[i]);
+// 	    }
+
+
+// 			// Найдём все ссылки на посты
+// 			// const postsSelector = '.HH-VacancyResponsePopup-Link';
+// 			const postsSelector = '.vacancy-serp .g-user-content a';
+// 			await page.waitForSelector(postsSelector, { timeout: 0 });
+// 			const baseURLssk = await page.$$eval(
+// 			  postsSelector, postLinks => postLinks.map(link => link.href)
+// 			);
+
+   			
+   			// await page.waitFor(nambeTime)
+
+// 			// for (let baseURL of baseURLssk) {
+// 				for(var i = 0; i <= baseURLssk.length; i++) {
+
+// 			    try {
+// 			        await page.goto(baseURLssk);
+// 			        console.log('Открываю страницу: ', baseURLssk);
+// 			    } catch (error) {
+// 			        console.log(error);
+// 			        console.log('Не удалось открыть страницу: ', baseURLssk);
+// 			    }
+
+// 			    const titleSelector = '.vacancy-title h1';
+// 			    await page.waitForSelector(titleSelector);
+// 			    const pageTitle = await page.$eval(
+// 			      titleSelector, titleSelector => titleSelector.innerText
+// 			    );
+
+
+// 			    try {
+
+			    	// await page.waitFor(nambeTime)
+
+// 					// const btn7231 = await Promise.race([
+// 				 //   	page.waitForSelector("body > div.HH-MainContent.HH-Supernova-MainContent > div > div > div.bloko-columns-wrapper > div > div > div.bloko-column.bloko-column_xs-4.bloko-column_s-8.bloko-column_m-8.bloko-column_l-11.bloko-column_container > div > div:nth-child(3) > div:nth-child(5) > div:nth-child(4) > div > div > div > div > div.vacancy-action.HH-VacancyResponsePopup-TopResponseAction.vacancy-action_full-size > a.HH-VacancyResponsePopup-Link.bloko-button.bloko-button_secondary.bloko-button_stretched")
+
+// 					// ]);
+
+// 					// await btn7231.click()
+
+					 // await page.waitFor(nambeTime)
+// 					 console.log('Откликнуться: ', pageTitle);
+
+
+// 					 await page.screenshot({path: '1'+pageTitle+'.png'})
+
+// 			    }	catch (error) {
+
+// 				   console.log(error);
+// 				   console.log('Вы откликнулись: ', pageTitle);
+
+// 			    }
+			 
+// 			 }
+
+// 		}
+
+// 	});
+
+// });

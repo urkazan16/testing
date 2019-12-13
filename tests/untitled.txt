@@ -1,0 +1,328 @@
+const path = require('path');
+const _ = require('lodash');
+var sleep = require('sleep');
+const assert = require('assert');
+const { expect } = require('chai');
+
+describe('Выбор вакансии', () => {
+
+
+before (async () => {
+	page = await browser.newPage();
+  	// await page.goto('http://localhost:3000')
+  	// await page.goto(baseURL)
+  	// await page.goto(baseURL, {waitUntil: 'load'})
+  	await page.goto(baseURL, {waitUntil: 'networkidle2'})
+})
+
+ after (async  () => {
+     await page.close();
+   })
+
+
+
+it("Ввод логин и пароль", async () => {
+
+    await page.waitFor(nambeTime)
+
+	const btn1 = await Promise.race([
+
+    	page.waitForXPath("//div[contains(@class,'bloko-column bloko-column_xs-0 bloko-column_s-8 bloko-column_m-12 bloko-column_l-16')]//a[@class='supernova-button']")
+
+	]);
+	await btn1.click()
+
+    await page.screenshot({path: '1.png'})
+
+    await page.waitFor(nambeTime)
+
+	const btn1type = await Promise.race([
+
+    	page.waitForXPath("//input[@placeholder='Email или телефон']")
+    	// page.waitForXPath("//body[contains(@class,'light-page-wrapper xs-friendly custom-font-allowed')]/div[@class='light-page light-page_promo']/div[@class='bloko-columns-wrapper']/div[@class='bloko-column bloko-column_xs-4 bloko-column_s-4 bloko-column_m-4 bloko-column_l-4']/div[1]/div[1]/form[1]/div[1]/input")
+	]);
+
+	await btn1type.type("urkazan16@gmail.com")
+
+	const btn2type = await Promise.race([
+
+    	page.waitForXPath("//input[@placeholder='Пароль']")
+	]);
+
+	await btn2type.type("DinDisplay")
+
+    await page.screenshot({path: '2.png'})
+
+
+	const btn2 = await Promise.race([
+
+    	page.waitForSelector('.account-form-actions input')
+
+	]);
+	await btn2.click()
+
+    await page.waitFor(nambeTime)
+
+    await page.screenshot({path: '1.png'})
+
+});
+
+
+
+it("Поиск вакансии", async () => {
+
+	const btn2type = await Promise.race([
+
+    	page.waitForSelector(".bloko-input-wrapper input")
+	]);
+
+	await btn2type.type("Тестировщик")
+
+		const btn2 = await Promise.race([
+
+    	page.waitForSelector('.supernova-search-group__submit button')
+
+	]);
+	await btn2.click()
+
+	await page.waitFor(nambeTime)
+
+
+});
+
+it("Количесво вакансий", async () => {
+// .search-resume-item-label
+
+	// const divsCounts = await page.$$eval('span .search-resume-item-label', divs => divs.length);
+
+	// console.log(divsCounts+"Вы откликнулись == 10")
+
+	const divsCounts1 = await page.$$eval('span .HH-VacancyResponsePopup-Link', divs => divs.length);
+
+	// console.log(divsCounts1+'Откликнуться == 10')
+
+	
+
+	for (var i = 1; i <= divsCounts1; i++) {
+
+	const btn711 = await Promise.race([
+    	page.waitForSelector('span .HH-VacancyResponsePopup-Link')
+
+	]);
+
+		await btn711.click()
+
+		await page.waitFor(nambeTime)
+
+		const divsCounts2 = await page.$$eval('.bloko-form-row label', divs => divs.length);
+
+	let arr = [];
+
+		for (var i = 2; i <= divsCounts2; i++) {
+
+	var element = await page.$eval(".bloko-form-row .vacancy-response-popup-resume:nth-child("+i+") span .bloko-radio__text", el => el.textContent);
+
+	if(element == "Тестировщик ПО") {
+
+	const btn722 = await Promise.race([
+    	page.waitForXPath("//span[contains(text(), '"+element+"')]")
+
+	]);
+
+	await btn722.click()
+
+
+	const btn723 = await Promise.race([
+    	page.waitForXPath("//button[contains(@class,'HH-SubmitDisabler-Submit')]")
+
+	]);
+
+	await btn723.click()
+
+
+
+
+			}
+
+		}
+
+	}
+
+});
+
+
+
+});
+
+const path = require('path');
+const _ = require('lodash');
+var sleep = require('sleep');
+const assert = require('assert');
+const { expect } = require('chai');
+
+describe('Выбор вакансии', () => {
+
+
+before (async () => {
+	page = await browser.newPage();
+  	// await page.goto('http://localhost:3000')
+  	// await page.goto(baseURL)
+  	// await page.goto(baseURL, {waitUntil: 'load'})
+  	await page.goto(baseURL, {waitUntil: 'networkidle2'})
+})
+
+ after (async  () => {
+     await page.close();
+   })
+
+
+
+it("Ввод логин и пароль", async () => {
+
+    await page.waitFor(nambeTime)
+
+	const btn1 = await Promise.race([
+
+    	page.waitForXPath("//div[contains(@class,'bloko-column bloko-column_xs-0 bloko-column_s-8 bloko-column_m-12 bloko-column_l-16')]//a[@class='supernova-button']")
+
+	]);
+	await btn1.click()
+
+    await page.screenshot({path: '1.png'})
+
+    await page.waitFor(nambeTime)
+
+	const btn1type = await Promise.race([
+
+    	page.waitForXPath("//input[@placeholder='Email или телефон']")
+    	// page.waitForXPath("//body[contains(@class,'light-page-wrapper xs-friendly custom-font-allowed')]/div[@class='light-page light-page_promo']/div[@class='bloko-columns-wrapper']/div[@class='bloko-column bloko-column_xs-4 bloko-column_s-4 bloko-column_m-4 bloko-column_l-4']/div[1]/div[1]/form[1]/div[1]/input")
+	]);
+
+	await btn1type.type("urkazan16@gmail.com")
+
+	const btn2type = await Promise.race([
+
+    	page.waitForXPath("//input[@placeholder='Пароль']")
+	]);
+
+	await btn2type.type("DinDisplay")
+
+    await page.screenshot({path: '2.png'})
+
+
+	const btn2 = await Promise.race([
+
+    	page.waitForSelector('.account-form-actions input')
+
+	]);
+	await btn2.click()
+
+    await page.waitFor(nambeTime)
+
+    await page.screenshot({path: '1.png'})
+
+});
+
+
+
+it("Поиск вакансии", async () => {
+
+	const btn2type = await Promise.race([
+
+    	page.waitForSelector(".bloko-input-wrapper input")
+	]);
+
+	await btn2type.type("Тестировщик")
+
+		const btn2 = await Promise.race([
+
+    	page.waitForSelector('.supernova-search-group__submit button')
+
+	]);
+	await btn2.click()
+
+	await page.waitFor(nambeTime)
+
+
+});
+
+it("Количесво вакансий", async () => {
+
+	const divsCounts1 = await page.$$eval('span .HH-VacancyResponsePopup-Link', divs => divs.length);
+
+
+	for (var i = 1; i <= divsCounts1; i++) {
+
+await page.evaluate(() => {
+   document.querySelector('span .HH-VacancyResponsePopup-Link').scrollIntoView();
+});
+
+
+	const btn711 = await Promise.race([
+    	page.waitForSelector('span .HH-VacancyResponsePopup-Link')
+
+	]);
+
+		await btn711.click()
+
+		await page.waitFor(nambeTime)
+
+// 		const divsCounts2 = await page.$$eval('.bloko-form-row label', divs => divs.length);
+
+// 	let arr = [];
+
+
+
+
+
+// 		for (var i = 2; i <= divsCounts2; i++) {
+
+
+
+
+// 	var element = await page.$eval(".bloko-form-row div:nth-child("+i+") label span", el => el.textContent);
+
+// 	console.log(element)
+// 	// var element = await page.$eval(".bloko-form-row .vacancy-response-popup-resume:nth-child("+i+") span .bloko-radio__text", el => el.textContent);
+
+// // .vacancy-serp-item__controls-item .bloko-link.HH-VacancyResponsePopup-Link
+
+
+
+// 	if(element == "Тестировщик ПО") {
+
+	const btn722 = await Promise.race([
+    	page.waitForXPath("//span[contains(text(), 'Тестировщик ПО')]")
+    	// page.waitForXPath("//span[contains(text(), '"+element+"')]")
+
+	]);
+
+	await btn722.click()
+
+
+	const btn723 = await Promise.race([
+    	page.waitForXPath("//button[contains(@class,'HH-SubmitDisabler-Submit')]")
+
+	]);
+
+	await btn723.click()
+
+await page.waitFor(nambeTime)
+
+
+			// }
+
+		// 	return i;
+
+		// }
+
+
+
+	}
+
+});
+
+
+
+});
+

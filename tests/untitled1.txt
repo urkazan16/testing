@@ -1,0 +1,432 @@
+const path = require('path');
+const _ = require('lodash');
+var sleep = require('sleep');
+const assert = require('assert');
+const { expect } = require('chai');
+
+describe('Выбор вакансии', () => {
+
+
+before (async () => {
+	page = await browser.newPage();
+  	await page.goto(baseURL, {waitUntil: 'networkidle2'})
+})
+
+ after (async  () => {
+     await page.close();
+   })
+
+
+
+
+
+it("Ввод логин и пароль", async () => {
+
+    await page.waitFor(nambeTime)
+
+	const btn1 = await Promise.race([
+
+    	page.waitForXPath("//div[contains(@class,'bloko-column bloko-column_xs-0 bloko-column_s-8 bloko-column_m-12 bloko-column_l-16')]//a[@class='supernova-button']")
+
+	]);
+	await btn1.click()
+
+    await page.screenshot({path: '1.png'})
+
+    await page.waitFor(nambeTime)
+
+	const btn1type = await Promise.race([
+
+    	page.waitForXPath("//input[@placeholder='Email или телефон']")
+
+	]);
+
+	await btn1type.type("urkazan16@gmail.com")
+
+	const btn2type = await Promise.race([
+
+    	page.waitForXPath("//input[@placeholder='Пароль']")
+	]);
+
+	await btn2type.type("DinDisplay")
+
+    await page.screenshot({path: '1.1.png'})
+
+
+	const btn2 = await Promise.race([
+
+    	page.waitForSelector('.account-form-actions input')
+
+	]);
+	await btn2.click()
+
+    await page.waitFor(nambeTime)
+
+    await page.screenshot({path: '1.2.png'})
+
+});
+
+
+
+it("Поиск вакансии", async () => {
+
+	const btn2type = await Promise.race([
+
+    	page.waitForSelector(".bloko-input-wrapper input")
+	]);
+
+	await btn2type.type("Тестировщик")
+
+		const btn2 = await Promise.race([
+
+    	page.waitForSelector('.supernova-search-group__submit button')
+
+	]);
+	await btn2.click()
+
+    await page.screenshot({path: '2.png'})
+
+	await page.waitFor(nambeTime)
+
+
+});
+
+// it("Количесво вакансий", async () => {
+
+// 	    await page.screenshot({path: '3.png'})
+
+
+
+	
+// 	for (var i = 1; i <= divsCounts1; i++) {
+
+// 			const btn711 = await Promise.race([
+// 				page.waitForSelector('span .HH-VacancyResponsePopup-Link')
+// 			]);
+
+// 			await btn711.click()
+
+// 			await page.screenshot({path: '3.1.png'})
+
+// 			await page.waitFor(nambeTime)
+
+// 			const btn712 = await Promise.race([
+// 				page.waitForXPath("//span[@class='bloko-button HH-VacancyResponsePopup-Cancel']")
+// 			]);
+
+// 			await page.screenshot({path: "31"+i+".png"})
+			
+// 			await btn712.click()
+
+// 			await page.waitFor(nambeTime)
+
+
+// 			const btn7231 = await Promise.race([
+		
+// 				page.waitForSelector(".bloko-button-group > span:nth-child(2)")
+
+// 				]);
+
+// 			await btn7231.click()
+
+// 				await page.screenshot({path: "32"+i+".png"})
+
+	
+// }
+
+// });
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+it("Количесво вакансий", async () => {
+
+	// const divsCounts1 = await page.$$eval('.bloko-button.HH-Pager-Control', divs => divs.length); // количество блоков
+
+
+const postsSelectorlink = '.bloko-button-group span a';
+// const postsSelectorlink = '.bloko-button-group.bloko-button.HH-Pager-Control';
+await page.waitForSelector(postsSelectorlink, { timeout: 0 });
+const baseURLss = await page.$$eval(
+  postsSelectorlink, postLinks => postLinks.map(link => link.href)
+);
+
+	// for (var i = 0; i < divsCounsts1; i++) {
+	// 	// console.log(divsCounts1)
+	// 	// console.log(divsCounsts1[i])
+	// }
+
+	// console.log(baseURLss.length)
+// for (var i = 0; i < baseURLss.length; i++) {
+
+// 		console.log(baseURLss[i])
+// }
+
+// for (var ia = 0; i < baseURLss.length; ia++) {
+// 		console.log(baseURLss[ia])
+// }
+
+// for (var ib = 1; i < baseURLss.length; ib++) {
+// 		console.log(baseURLss[ib])
+// }
+
+// for (var ic = 1; i <= baseURLss.length; ic++) {
+// 		console.log(baseURLss[ic])
+// }
+
+
+	for (var i = 0; i <= baseURLss.length; i++) {
+	// for (let baseURL of baseURLss) {
+
+		// console.log(baseURLss[i])
+		// console.log(baseURLss+' link')
+		// console.log(i+'<br>')
+
+		    // await page.waitFor(nambeTime)
+
+	    try {
+	        await page.goto(baseURLss[i]);
+	        console.log('Открываю страницу: ', baseURLss[i]);
+	    } catch (error) {
+	        console.log(error);
+	        console.log('Не удалось открыть страницу: ', baseURLss[i]);
+	    }
+
+	    // await page.screenshot({path: "32.png"})
+
+
+			// Найдём все ссылки на посты
+			const postsSelector = '.HH-VacancyResponsePopup-Link';
+			// const postsSelector = '.vacancy-serp .g-user-content a';
+			await page.waitForSelector(postsSelector, { timeout: 0 });
+			const baseURLssk = await page.$$eval(
+			  postsSelector, postLinks => postLinks.map(link => link.href)
+			);
+
+
+			console.log(baseURLssk.length)
+			console.log(baseURLssk)
+   			
+   			await page.waitFor(nambeTime)
+
+   			for (var links = 0; links <= baseURLssk.length; links++) {
+			// for (let baseURL of baseURLs) {
+
+				// console.log(baseURLssk[i])
+
+				   //  // Откроем страницу
+			    try {
+			        await page.goto(baseURL);
+			        console.log('Открываю страницу: ', baseURL);
+			    } catch (error) {
+			        console.log(error);
+			        console.log('Не удалось открыть страницу: ', baseURL);
+			    }
+
+			    // div:nth-child(4) > div > div > div > div > div.vacancy-action.vacancy-action_stretched > a.bloko-button_secondary.bloko-button_stretched
+
+
+
+			    // await page.waitFor(nambeTime)
+			    // // Получим заголовок статьи
+			    const titleSelector = '.vacancy-title h1';
+			    await page.waitForSelector(titleSelector);
+			    const pageTitle = await page.$eval(
+			      titleSelector, titleSelector => titleSelector.innerText
+			      // titleSelector, titleSelector => titleSelector.outerHTML
+			    );
+
+			    try {
+					const btn7231 = await Promise.race([
+				    	page.waitForSelector("div:nth-child(4) > div > div > div > div > div.vacancy-action.vacancy-action_stretched > a.bloko-button_secondary.bloko-button_stretched")
+
+					]);
+
+					await btn7231.click()
+			    	// div:nth-child(4) > div > div > div > div > div.vacancy-action.vacancy-action_stretched > a.bloko-button_secondary.bloko-button_stretched
+			    }
+
+
+			    // console.log('Нашёл заголовок статьи: ', baseURL[i]);
+			 
+			 }
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Найдём все ссылки на посты
+// const postsSelector = '.vacancy-serp .g-user-content a';
+// await page.waitForSelector(postsSelector, { timeout: 0 });
+// const baseURLs = await page.$$eval(
+//   postsSelector, postLinks => postLinks.map(link => link.href)
+// );
+
+
+// for (let baseURL of baseURLs) {
+
+
+// 	    // Откроем страницу
+//     try {
+//         await page.goto(baseURL);
+//         console.log('Открываю страницу: ', baseURL);
+//     } catch (error) {
+//         console.log(error);
+//         console.log('Не удалось открыть страницу: ', baseURL);
+//     }
+
+//     // Получим заголовок статьи
+//     const titleSelector = '.vacancy-title h1';
+//     await page.waitForSelector(titleSelector);
+//     const pageTitle = await page.$eval(
+//       titleSelector, titleSelector => titleSelector.outerHTML
+//     );
+
+
+//     console.log('Нашёл заголовок статьи: ', pageTitle);
+ 
+//  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+});
+
+});
+
+// 	for (var i = 1; i < divsCounts1; i++) {
+
+// await page.evaluate(() => {
+//    document.querySelector('span .HH-VacancyResponsePopup-Link').scrollIntoView();
+// });
+
+
+// 	const btn711 = await Promise.race([
+//     	page.waitForSelector('span .HH-VacancyResponsePopup-Link')
+
+// 	]);
+
+// 		await btn711.click()
+
+// 		await page.waitFor(nambeTime)
+
+
+// 	// const btn722 = await Promise.race([
+//  //    	page.waitForXPath("//span[contains(text(), 'Тестировщик ПО')]")
+
+// 	// ]);
+
+// 	// await btn722.click()
+
+
+// 	// const btn723 = await Promise.race([
+//  //    	page.waitForXPath("//button[contains(@class,'HH-SubmitDisabler-Submit')]")
+
+// 	// ]);
+
+// 	// await btn723.click()
+
+// 	// await page.waitFor(nambeTime)
+
+// 	// await page.evaluate(() => {
+   	
+//  //   	document.querySelector('span .HH-VacancyResponsePopup-Link').scrollIntoView();
+// 	// 	});
+
+// 	
+
+
+
+// 	}
+
+// console.log(divsCounts1)
+// 	if(divsCounts1 < 0 ){
+
+// 			await page.evaluate(() => {
+//    document.querySelector('.bloko-button-group span a').scrollIntoView();
+// });
+
+// console.log("divsCounts1")
+// 	// .bloko-button-group span:nth-child(2) a
+// 	const divsCounts11 = await page.$$eval('.bloko-button-group span a', divs => divs.length);
+
+
+// 	for (var ia = 2; ia < divsCounts11; ia++) {
+
+// 	const btn7231 = await Promise.race([
+//     	page.waitForSelector(".bloko-button-group span:nth-child("+ia+") a")
+
+// 	]);
+
+// 	await btn7231.click()
+
+// 		await page.waitFor(nambeTime)
+
+
+// 			}
+// 		}
+
+// 		else {
+// 			console.log(divsCounts1+"sc")
+// 		}

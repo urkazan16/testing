@@ -1,0 +1,58 @@
+// const path = require('path');
+// const _ = require('lodash');
+// var sleep = require('sleep');
+// const assert = require('assert');
+// const { expect } = require('chai');
+
+// describe('Выбор вакансии', () => {
+
+
+// before (async () => {
+// 	page = await browser.newPage();
+//   	// await page.goto('http://localhost:3000')
+//   	// await page.goto(baseURL)
+//   	// await page.goto(baseURL, {waitUntil: 'load'})
+//   	await page.goto("https://telau.ru/", {waitUntil: 'networkidle2'})
+//   	// await page.goto(baseURL, {waitUntil: 'networkidle2'})
+// })
+
+//  after (async  () => {
+//      await page.close();
+//    })
+
+
+
+// it("Добавление полей в адин вход", async () => {
+
+// 	var nam = 1;
+
+// 	const divsCounts1 = await page.$$eval('.add-to-cart', divs => divs.length);
+
+// 	console.log(divsCounts1)
+
+//    	for (var x = 1; x <= divsCounts1; x++) {
+
+//    		console.log(x)
+
+  
+// 	const btn1 = await Promise.race([
+
+//     	page.waitForXPath("//div[@id='catalog-items']//div["+x+"]//div[1]//div[1]//div[3]//div[1]//div[1]//div[2]//div[1]//div[3]//div[1]//div[2]//a[1]")
+
+// 	]);
+// 	await btn1.click()
+
+//  		// 	await page.evaluate(() => {
+// 			// 	document.querySelector("#catalog-items > div .add-to-cart").scrollIntoView();
+// 			// });
+// 	await page.$eval('.add-to-cart', btn => btn.scrollIntoView());
+
+//     await page.waitFor(nambeTime)
+
+//     }
+
+// });
+
+
+// });
+
