@@ -8,6 +8,6 @@ class TestingController < ApplicationController
   def index
   	# puts "hello"
   	fork { exec ('npm test')}
-  	 # @logintest = Runtest.new('test')
+
   end
 end

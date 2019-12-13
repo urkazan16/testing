@@ -33,7 +33,7 @@
 
 # # /bootstrap.js
 /node_modules/*
-/jop/node_modules/*
+/hh_jobs/node_modules/*
 # node_modules/
 #/img_test/*
 # img_test/
