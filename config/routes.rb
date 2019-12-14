@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   	end 
   end
 
-  # root 'welcome#index'
-  root 'frames#index'
+  root 'welcome#index'
+  # root 'frames#index'
 
 get '/button', to: 'your_controller_name#button', as: 'button'
 

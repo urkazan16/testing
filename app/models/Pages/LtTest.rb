@@ -1,16 +1,20 @@
-# require "selenium-webdriver"
-# require "test/unit"
+require "selenium-webdriver"
+require "test/unit"
 
-# module LtTest
+module LtTest
  
 
-# def  test_footer_columns # ****
+def  test_footer_columns # ****
 
-#     @driver.get('http://localhost:3000/')
-#     @driver.manage.window.maximize  
+    # @driver.get("#{VAR1}")
+    @driver.get("#$global_variable")
 
 
-# end
+    # @driver.get('http://ya.ru/')
+    @driver.manage.window.maximize  
 
-# end
+
+end
+
+end
 
