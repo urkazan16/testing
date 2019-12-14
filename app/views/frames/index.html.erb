@@ -1,0 +1,35 @@
+<h1>Frames#index</h1>
+<div>
+<input id="myInput" type="text" name="urlsite" value="">
+<button name="oklink">OK</button>
+</div>
+<!-- <iframe width="1040" height="800" src="http://localhost:3000/welcome/index" ></iframe> -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
+
+<iframe id="iframes" src="http://localhost:3000/welcome/index" width="1240" height="800" ></iframe>
+<!-- <iframe id="iframes" src="" width="1240" height="800" ></iframe> -->
+
+
+
+<script type="text/javascript">
+
+window.onload = function() {
+	var oFrame = document.getElementById("iframes");
+	oFrame.contentWindow.document.onclick = function(e) {
+		console.log(e.clientX + ':' + e.clientY);
+	};
+}; 
+
+$( "button" ).on( "click", function() {
+  // console.log( $( this ).text() );
+ var inputVal = document.getElementById('myInput').value;
+
+
+$('iframe').attr('src', inputVal);
+});
+
+
+
+</script>
