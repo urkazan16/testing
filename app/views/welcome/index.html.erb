@@ -3,10 +3,51 @@
 <h3>Run file:</h3>
 <a href="">run</a>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	function sayHello() {
+		$.getJSON("/articles/say_hello", function(res) {
+			// alert(res);
+		});
+	}
+</script>
+
+<h1>Listing articles</h1>
+<button onclick="sayHello();">Hi</button>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Text</th>
+    <th></th>
+  </tr>
+
+  <% @articles.each do |article| %>
+    <tr>
+      <td><%= article.id %></td>
+      <td><b><%= article.title %></b></td>
+      <td><%= article.text %></td>
+      <td><%= link_to 'Show', article_path(article) %></td>
+    </tr>
+  <% end %>
+
+      <p><%= link_to 'New', new_article_path %></p>
+
+  <%#= article.id(1) %>
+
+  <%#= @article.title %>
 
 
 
+</table>
 
+<%#= link_to 'welcome#index', rmp_scraper_path, :class => "btn btn-primary" %>
+
+	<%= link_to "somewhere", button_to %>
+
+
+<h1> <%#= @word %> </h1>
+
+  	<%#= button_to 'Press me', button_path, method: :get  %>
 
 
 
