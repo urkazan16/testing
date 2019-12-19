@@ -10,7 +10,10 @@ class LoginClass < Test::Unit::TestCase
 
  $global_variable = "https://google.ru"
  
+
 include LtTest
+
+
 
   def setup
 
@@ -37,5 +40,6 @@ include LtTest
   def teardown
     @driver.quit
   end
+
 
 end
